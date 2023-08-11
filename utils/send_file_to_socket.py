@@ -5,8 +5,7 @@ import base64
 
 
 if len(sys.argv) < 4:
-    print(
-        "Usage: {} <socket> <cmd> <file> [optional: other-file?]".format(sys.argv[0]))
+    print(f"Usage: {sys.argv[0]} <socket> <cmd> <file> [optional: other-file?]")
     sys.exit(1)
 
 sock = sys.argv[1]
@@ -52,9 +51,9 @@ else:
         "text": base64.b64encode(data).decode("utf-8")
     }
 
-print("Sending msg: {}".format(msg))
+print(f"Sending msg: {msg}")
 
-msg = json.dumps(msg) + r"??END??"
+msg = f"{json.dumps(msg)}??END??"
 b = msg.encode("utf-8")
 
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -64,7 +63,7 @@ s.sendall(b)
 # read the response and print it, receive all data until EOF
 data = s.recv(999999999)
 res = data.decode("utf-8")
-print("Response is:\n {}".format(res))
+print(f"Response is:\n {res}")
 try:
     jsonDecoded = json.loads(res)
     base64Decoded = base64.b64decode(jsonDecoded["text"]).decode("utf-8")
@@ -74,15 +73,15 @@ try:
         jsonDecoded = json.loads(base64Decoded)
         base64Decoded = json.dumps(jsonDecoded, indent=4)
 
-    print("Whole response is:\n {}".format(jsonDecoded))
-    print("Text is:\n {}".format(base64Decoded))
+    print(f"Whole response is:\n {jsonDecoded}")
+    print(f"Text is:\n {base64Decoded}")
 except:
     try:
         # try to get the error message
         jsonDecoded = json.loads(res)
-        print("Error: {}".format(jsonDecoded["message"]))
+        print(f'Error: {jsonDecoded["message"]}')
     except:
         print("Error decoding response")
-        print("Response is:\n {}".format(res))
+        print(f"Response is:\n {res}")
 
 s.close()

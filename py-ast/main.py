@@ -19,7 +19,7 @@ from typing import Any, Union
 
 
 if len(sys.argv) != 2:
-    print(f'usage: [path to socket]')
+    print('usage: [path to socket]')
     sys.exit(1)
 
 SERVER_ADDR = sys.argv[2]
@@ -78,9 +78,7 @@ def recvall(s: socket.socket) -> bytes:
     return data
 
 def gen_source_file(decoded_text: str, with_comments: bool = False) -> Union[ast.AST, RedBaron]:
-    if with_comments:
-        return RedBaron(decoded_text)
-    return ast.parse(decoded_text)
+    return RedBaron(decoded_text) if with_comments else ast.parse(decoded_text)
 
 def handle_print(decoded_text: str) -> str:
     source_file = gen_source_file(decoded_text, with_comments=True)

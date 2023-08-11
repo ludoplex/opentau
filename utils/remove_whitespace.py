@@ -13,7 +13,7 @@ def remove_whitespace(f: str, i: int) -> None:
     write_f = f.replace('.js', '-nc.js')
     with open(f,'r') as read_file:
         with open(write_f, 'a') as write_file:
-            for line in read_file.readlines():
+            for line in read_file:
                 if not line.isspace():
                     if '//' in line:
                         line = line.split('//')[0]
