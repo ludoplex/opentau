@@ -41,10 +41,7 @@ def _strip_types(source_file: RedBaron) -> ast.AST:
 
 def _count_nodes(source_file: RedBaron) -> int:
     ast_without_comments = _strip_types(source_file)
-    count = 1
-    for _ in ast.walk(ast_without_comments):
-        count += 1
-    return count
+    return 1 + sum(1 for _ in ast.walk(ast_without_comments))
 
 # FIXME: recursion depth error
 def check_completed(original_ast: RedBaron, completed_ast: RedBaron) -> Tuple[bool, int]:

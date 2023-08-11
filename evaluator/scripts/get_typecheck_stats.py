@@ -35,7 +35,7 @@ def get_syntax_errors(code):
         _ = proc.communicate(input=code.encode("utf-8"))
         return proc.returncode
     except Exception as e:
-        print("Had an error running the syntax checker: {}".format(e))
+        print(f"Had an error running the syntax checker: {e}")
         return 0
 
 
@@ -85,20 +85,22 @@ def get_num_typecheck(data_path, run_syntax):
     avg_syntax_errors /= max(num_elems_with_completion, 1)
 
     print()
-    print("Number of elements: {}".format(num_elems))
-    print("Number of elements with a completion: {}".format(
-        num_elems_with_completion))
-    print("Number of elements with a completion that typechecks: {}".format(num_typecheck))
-    print("Number of elements that panicked: {}".format(num_panic))
-    print("Average best number of type errors: {}".format(avg_type_errors))
+    print(f"Number of elements: {num_elems}")
+    print(f"Number of elements with a completion: {num_elems_with_completion}")
+    print(f"Number of elements with a completion that typechecks: {num_typecheck}")
+    print(f"Number of elements that panicked: {num_panic}")
+    print(f"Average best number of type errors: {avg_type_errors}")
     if run_syntax:
-        print("Average best number of syntax errors: {}".format(avg_syntax_errors))
-    print("Average best heuristic of ones that typecheck (lower is better): {}".format(
-        avg_heuristic))
-    print("Average number of anys per completion that typechecks: {}".format(
-        total_num_any_in_typechecks / max(num_typecheck, 1)))
-    print("Percentage of anys per annotation in completions that typechecks: {}".format(
-        total_num_any_in_typechecks / max(total_num_annot_in_typechecks, 1)))
+        print(f"Average best number of syntax errors: {avg_syntax_errors}")
+    print(
+        f"Average best heuristic of ones that typecheck (lower is better): {avg_heuristic}"
+    )
+    print(
+        f"Average number of anys per completion that typechecks: {total_num_any_in_typechecks / max(num_typecheck, 1)}"
+    )
+    print(
+        f"Percentage of anys per annotation in completions that typechecks: {total_num_any_in_typechecks / max(total_num_annot_in_typechecks, 1)}"
+    )
 
 
 if __name__ == "__main__":

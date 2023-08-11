@@ -5,11 +5,7 @@ import matplotlib.pyplot as plt
 ds = datasets.load_dataset("nuprl/ts-eval", split="test")
 
 
-lengths = []
-
-for ex in ds:
-    lengths.append(len(ex["content"]))
-
+lengths = [len(ex["content"]) for ex in ds]
 plt.hist(lengths, bins=100)
 plt.xlabel('Example Length')
 plt.ylabel('Number of Examples')
